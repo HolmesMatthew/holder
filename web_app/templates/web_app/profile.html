@@ -1,0 +1,9 @@
+{% extends "web_app/index.html" %}
+<!--  -->
+{% block title %}
+<title>{{request.user}}</title>
+{% endblock title %}
+<!--  -->
+{% block content %}
+<h1>{{request.user}}</h1>
+{% endblock content %}

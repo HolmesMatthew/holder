@@ -1,0 +1,14 @@
+{% extends "web_app/index.html" %}
+<!--  -->
+{% block title %}
+<title>Login</title>
+{% endblock title %}
+<!--  -->
+{% block content %}
+
+<h1>Login</h1>
+<form action="" method="POST">
+  {% csrf_token %} {{form}}
+  <button type="submit">Submit</button>
+</form>
+{% endblock content %}
