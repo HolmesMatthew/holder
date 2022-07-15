@@ -1,17 +1,16 @@
 {% extends "web_app/index.html" %}
 <!--  -->
 {% block title %}
-<title>Login</title>
+<title>Sign Up</title>
 {% endblock title %}
 <!--  -->
 {% block content %}
-
-<h1>Login</h1>
+<h1>Sign up</h1>
 <form action="" method="POST">
-  {% csrf_token %} {{form}}
+  {% csrf_token %}
+  <!--  -->
+  {{form}}
   <button type="submit">Submit</button>
 </form>
-<h3>Or make an account</h3>
-<button><a href="{% url 'signup' %}">Sign up</a></button>
 
 {% endblock content %}

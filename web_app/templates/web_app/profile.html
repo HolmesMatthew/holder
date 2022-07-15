@@ -6,4 +6,15 @@
 <!--  -->
 {% block content %}
 <h1>{{request.user}}</h1>
-{% endblock content %}
+
+<form action="{% url 'new-task' %}" method="POST">
+  {% csrf_token %} {{form.title}}
+  <button type="submit">Submit</button>
+</form>
+
+{% for task in tasks %}
+<ul>
+  {{task}}
+</ul>
+
+{% endfor %} {% endblock content %}
