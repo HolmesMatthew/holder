@@ -34,7 +34,57 @@
 
   {% block content %}
   <body>
-    <h1>TEST</h1>
+    <h2>ToDo list</h2>
+    <br />
+    <input type="text" id="todo-input" />
+    <button id="todo-btn">Add</button>
+    <ul id="todo-list"></ul>
+    <span style="color: grey">Make an account and save your list!</span>
+    <!--  -->
+    <script>
+      const todoBtn = document.getElementById("todo-btn");
+      const todoInput = document.getElementById("todo-input");
+      const todoList = document.getElementById("todo-list");
+
+      todoBtn.addEventListener("click", addItem);
+
+      function addItem() {
+        const todoText = todoInput.value;
+        const li = document.createElement("li");
+        const span = document.createElement("span");
+        span.textContent = todoText;
+        li.append(span);
+        todoList.appendChild(li);
+        todoInput.value = "";
+        //
+        const delBtn = document.createElement("button");
+        delBtn.textContent = "X";
+        li.append(delBtn);
+        delBtn.addEventListener("click", function () {
+          todoList.removeChild(delBtn.parentElement);
+        });
+        //
+        const completeBtn = document.createElement("button");
+        completeBtn.textContent = "✔️";
+        li.append(completeBtn);
+
+        completeBtn.addEventListener("click", function () {
+          const parent = completeBtn.parentElement;
+          const span = parent.querySelector("span");
+          if (span.style.textDecoration === "line-through") {
+            span.style.textDecoration = "none";
+            span.style.color = "black";
+            todoList.insertBefore(parent, todoList.firstChild);
+            completeBtn.textContent = "check";
+          } else {
+            span.style.textDecoration = "line-through";
+            span.style.color = "grey";
+            todoList.removeChild(parent);
+            todoList.append(parent);
+          }
+        });
+      }
+    </script>
   </body>
   {% endblock content %}
 </html>

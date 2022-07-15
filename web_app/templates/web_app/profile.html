@@ -1,5 +1,7 @@
 {% extends "web_app/index.html" %}
 <!--  -->
+
+<!--  -->
 {% block title %}
 <title>{{request.user}}</title>
 {% endblock title %}
@@ -12,9 +14,45 @@
   <button type="submit">Submit</button>
 </form>
 
-{% for task in tasks %}
-<ul>
-  {{task}}
-</ul>
+<div class="task-list">
+  <div class="not-done">
+    {% for task in tasks %}
+    <!--  -->
+    {% if task.complete == False %}
+    <ul>
+      <button>
+        <a href="{% url 'edit' task.id %}">edit</a>
+      </button>
+      <button>
+        <a href="{% url 'delete-task' task.id %}">delete</a>
+      </button>
+      <ul>
+        {{task}}
+      </ul>
+    </ul>
+    {% endif %}
+    <!--  -->
+    {% endfor %}
+  </div>
 
-{% endfor %} {% endblock content %}
+  <div class="done">
+    {% for task in tasks %}
+    <!--  -->
+    {% if task.complete == True %}
+    <ul>
+      <button>
+        <a href="{% url 'edit' task.id %}">edit</a>
+      </button>
+      <button>
+        <a href="{% url 'delete-task' task.id %}">delete</a>
+      </button>
+      <ul class="completed">
+        {{task}}
+      </ul>
+    </ul>
+    {% endif %}
+    <!--  -->
+    {% endfor %}
+  </div>
+  {% endblock content %}
+</div>

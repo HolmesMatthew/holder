@@ -1,6 +1,6 @@
 from multiprocessing import context
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -34,7 +34,9 @@ def sign_up(request):
                 password=form.cleaned_data['password']
             )
             user.save()
-        return HttpResponseRedirect(reverse('login_user'))
+            return HttpResponseRedirect(reverse('login_user'))
+        else:
+            return HttpResponseRedirect(reverse('signup'))
 
 
 def login_user(request):
@@ -67,8 +69,9 @@ def profile(request):
     }
     return render(request, 'web_app/profile.html', context)
 
+# ------------------------
 
-@ login_required
+
 def new_task(request):
     if request.method == "POST":
         form = TaskForm(request.POST)
@@ -78,3 +81,24 @@ def new_task(request):
             task.title = form.cleaned_data['title']
             task.save()
         return HttpResponseRedirect(reverse('profile'))
+
+
+def edit(request, pk):
+    task = Task.objects.get(id=pk)
+    form = TaskForm(instance=task)
+    context = {
+        'task': task,
+        'form': form
+    }
+    if request.method == "POST":
+        form = TaskForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    return render(request, 'web_app/edit.html', context)
+
+
+def delete_task(request, pk):
+    item = Task.objects.get(id=pk)
+    item.delete()
+    return redirect('profile')

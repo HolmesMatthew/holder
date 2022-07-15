@@ -8,6 +8,9 @@ urlpatterns = [
     path('logout', views.logout_user, name='logout_user'),
     path('profile', views.profile, name='profile'),
     path('signup', views.sign_up, name='signup'),
+    #
     path('new-task', views.new_task, name='new-task'),
+    path('edit/<str:pk>', views.edit, name='edit'),
+    path('delete/<str:pk>', views.delete_task, name='delete-task'),
 
 ]
