@@ -53,6 +53,11 @@ def login_user(request):
             if user is not None:
                 login(request, user)
                 return HttpResponseRedirect(reverse('profile'))
+            else:
+                form.add_error('username', 'Invalid Credentials')
+                return render(request, 'web_app/login.html', {
+                    'form': form
+                })
 
 
 def logout_user(request):
